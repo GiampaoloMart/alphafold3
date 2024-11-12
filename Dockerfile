@@ -22,6 +22,9 @@ RUN apt update && apt install -y \
 # Clona il repository AlphaFold 3 da GitHub
 RUN git clone https://github.com/google-deepmind/alphafold3.git /app/alphafold
 
+# Copia il file dev-requirements.txt nella directory di lavoro
+COPY alphafold3/dev-requirements.txt /app/alphafold/
+
 # Crea un ambiente virtuale Python
 RUN python3.11 -m venv /alphafold3_venv
 ENV PATH="/hmmer/bin:/alphafold3_venv/bin:$PATH"
@@ -38,7 +41,6 @@ RUN mkdir /hmmer_build /hmmer && \
 
 # Installa le dipendenze Python
 WORKDIR /app/alphafold
-COPY dev-requirements.txt .
 RUN pip3 install -r dev-requirements.txt
 RUN pip3 install --no-deps .
 
