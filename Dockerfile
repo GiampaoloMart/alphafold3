@@ -7,9 +7,7 @@
 # out at https://github.com/google-deepmind/alphafold3. You may only use these
 # if received directly from Google. Use is subject to terms of use available at
 # https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md
-
 FROM nvidia/cuda:12.6.0-base-ubuntu22.04
-
 
 # Aggiorna i pacchetti del sistema e installa ulteriori dipendenze
 RUN apt update && apt install -y \
@@ -40,6 +38,7 @@ RUN mkdir /hmmer_build /hmmer && \
 
 # Installa le dipendenze Python
 WORKDIR /app/alphafold
+COPY dev-requirements.txt .
 RUN pip3 install -r dev-requirements.txt
 RUN pip3 install --no-deps .
 
